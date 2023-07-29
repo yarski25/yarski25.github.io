@@ -1,52 +1,47 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Coords } from "../../types/Coords";
+import WeatherService from "../../api/WeatherService";
+import { useFetching } from "../../hooks/useFetching";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{
-      display: "inline-block",
-      mx: "2px",
-      transform: "scale(0.8)",
-    }}
-  >
-    •
-  </Box>
-);
+const MyCard = () => {
+  const [location, setLocation] = useState<Coords>({ lat: "", lon: "" });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        Word of the Day
-      </Typography>
-      <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        adjective
-      </Typography>
-      <Typography variant="body2">
-        well meaning and kindly.
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </React.Fragment>
-);
+  let temperature = "";
 
-export default function MyCard() {
+  useEffect(
+    () => console.log("re-render because location changed:", temperature),
+    [temperature]
+  );
+
   function handleOnClick() {
     if ("geolocation" in navigator) {
       console.log("Available");
       navigator.geolocation.getCurrentPosition(
         function (position) {
+          const latitude = position.coords.latitude.toString();
+          const longitude = position.coords.longitude.toString();
+          setLocation({
+            lat: latitude,
+            lon: longitude,
+          });
+          //console.log("Latitude is :", location.lat);
+          //console.log("Longitude is :", location.lon);
           console.log("Latitude is :", position.coords.latitude);
           console.log("Longitude is :", position.coords.longitude);
+          WeatherService.getByCoords({ lat: latitude, lon: longitude })
+            .then((response) => {
+              setIsLoading(true);
+              temperature = response.data.current.temp_c.toString();
+              console.log(temperature);
+            })
+            .catch((e) => {
+              setError((e as Error).message);
+            })
+            .finally(() => setIsLoading(false));
         },
         function (error) {
           console.error("Error Code = " + error.code + " - " + error.message);
@@ -67,9 +62,33 @@ export default function MyCard() {
           variant="outlined"
           sx={{ border: "2px solid purple", borderRadius: "16px" }}
         >
-          {card}
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              Word of the Day
+            </Typography>
+            <Typography variant="h5" component="div">
+              {temperature}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              adjective
+            </Typography>
+            <Typography variant="body2">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
         </Card>
       </Box>
     </div>
   );
-}
+};
+
+export default MyCard;
