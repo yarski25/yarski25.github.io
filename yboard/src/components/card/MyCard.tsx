@@ -19,7 +19,18 @@ type MyCardProps = {
 const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
   return (
     <div>
-      <Box sx={{ maxWidth: 150 }}>
+      <Box
+        sx={{
+          maxWidth: "10rem",
+          margin: "auto",
+          marginTop: "2rem",
+          // position: "static",
+          // display: "flex",
+          //justifyContent: "center",
+          //alignItems: "center",
+          // minHeight: "100vh",
+        }}
+      >
         <Card
           variant="outlined"
           sx={{ border: "2px solid purple", borderRadius: "16px" }}
@@ -50,11 +61,6 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {weatherData?.wind_ms} m/s
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
             </Typography>
           </CardContent>
           <CardActions>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import { Coords } from "../../types/Coords";
 import WeatherService from "../../api/WeatherService";
 import { useFetching } from "../../hooks/useFetching";
@@ -25,7 +25,7 @@ const WeatherPage = () => {
     },
     wind_ms: "",
   } as DeepPartial<Current>);
-  const [isPageLoading, setIsPageLoading] = useState<boolean>(true);
+  const [weatherRequest, setWeatherRequest] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const [fetchData, isDataLoading, dataError] = useFetching(async () => {
@@ -65,7 +65,7 @@ const WeatherPage = () => {
   useEffect(() => {
     if (position.lat && position.lon) {
       fetchData();
-      setIsPageLoading(false);
+      setWeatherRequest(true);
     }
   }, [position]);
 
@@ -89,15 +89,19 @@ const WeatherPage = () => {
   };
 
   return (
-    <div>
+    <div className="weather-page">
+      <TextField
+        id="outlined-basic"
+        label="Outlined"
+        variant="outlined"
+        color="secondary"
+        size="small"
+      />
       <Button onClick={handleOnClick} variant="contained" color="secondary">
         Get location
       </Button>
-      {!isPageLoading ? (
-        <MyCard weatherData={currentWeather} />
-      ) : (
-        <CircularProgress color="secondary" />
-      )}
+      {weatherRequest ? <MyCard weatherData={currentWeather} /> : <div />}
+      {isDataLoading && <CircularProgress color="secondary" />}
     </div>
   );
 };
