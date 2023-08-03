@@ -92,7 +92,7 @@ const WeatherPage = () => {
     <div className="weather-page">
       <TextField
         id="outlined-basic"
-        label="Outlined"
+        label="City"
         variant="outlined"
         color="secondary"
         size="small"

@@ -24,6 +24,8 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
           maxWidth: "10rem",
           margin: "auto",
           marginTop: "2rem",
+          boxShadow: 10,
+          borderRadius: "16px",
           // position: "static",
           // display: "flex",
           //justifyContent: "center",
@@ -33,7 +35,11 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
       >
         <Card
           variant="outlined"
-          sx={{ border: "2px solid purple", borderRadius: "16px" }}
+          sx={{
+            border: "2px solid purple",
+            borderRadius: "16px",
+            backgroundColor: "#af52bfa1",
+          }}
         >
           <CardContent>
             <Typography
