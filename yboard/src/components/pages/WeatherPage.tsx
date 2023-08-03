@@ -92,7 +92,7 @@ const WeatherPage = () => {
     <div className="weather-page">
       <TextField
         id="outlined-basic"
-        label="City"
+        label="Outlined"
         variant="outlined"
         color="secondary"
         size="small"
@@ -100,8 +100,10 @@ const WeatherPage = () => {
       <Button onClick={handleOnClick} variant="contained" color="secondary">
         Get location
       </Button>
-      {weatherRequest ? <MyCard weatherData={currentWeather} /> : <div />}
-      {isDataLoading && <CircularProgress color="secondary" />}
+      {isDataLoading && (
+        <CircularProgress sx={{ color: "secondary", margin: "auto" }} />
+      )}
+      {weatherRequest && <MyCard weatherData={currentWeather} />}
     </div>
   );
 };
