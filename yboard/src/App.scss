@@ -7,7 +7,7 @@
 .app {
   text-align: center;
   margin-top: 2rem;
-  border: 2px solid black;
+  //border: 2px solid black;
 }
 
 .weather-page {
@@ -17,13 +17,13 @@
   &__input {
     display: flex;
     justify-content: center;
-    border: 2px solid red;
+    //border: 2px solid red;
   }
 
   &__output {
     display: flex;
     justify-content: center;
-    border: 2px solid green;
+    //border: 2px solid green;
   }
 }
 

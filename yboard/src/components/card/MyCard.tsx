@@ -21,12 +21,12 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
     <div>
       <Box
         sx={{
-          //maxWidth: "20rem",
-          minWidth: "10dvw",
+          //maxWidth: "15dvw",
+          minWidth: "1dvw",
           margin: "auto",
           marginTop: "2rem",
           boxShadow: 10,
-          borderRadius: "16px",
+          borderRadius: "1em",
           // position: "static",
           // display: "flex",
           //justifyContent: "center",
@@ -38,43 +38,57 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
           variant="outlined"
           sx={{
             border: "2px solid purple",
-            borderRadius: "16px",
+            borderRadius: "1em",
             backgroundColor: "#af52bfa1",
+            boxSizing: "box-border",
           }}
         >
-          <CardContent>
+          <CardContent sx={{ padding: "0.5em" }}>
             <Typography
-              sx={{ fontSize: 14 }}
+              sx={{ fontSize: 8 }}
               color="text.secondary"
               gutterBottom
             >
               {weatherData?.location?.country}
             </Typography>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" sx={{ fontSize: "0.5em" }}>
               {weatherData?.location?.name}
             </Typography>
             <CardMedia
               component="img"
-              height="100"
+              width="100"
+              //height="100"
               image={weatherData?.current?.condition?.icon}
               alt={weatherData?.current?.condition?.text}
+              //sx={{ objectFit: "contain" }}
             />
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" sx={{ fontSize: "1em" }}>
               {weatherData?.current?.temp_c}℃
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography
+              sx={{ mb: 1.5, fontSize: "0.5em" }}
+              color="text.secondary"
+            >
               {weatherData?.current?.wind_kph} km/h{" "}
               {weatherData?.current?.wind_dir}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography
+              sx={{ mb: 1.5, fontSize: "0.5em" }}
+              color="text.secondary"
+            >
               {weatherData?.wind_ms} m/s
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography
+              sx={{ mb: 1.5, fontSize: "0.5em" }}
+              color="text.secondary"
+            >
               air quality: {weatherData?.current?.air_quality?.["us-epa-index"]}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+            {/* <Button size="small" sx={{ fontSize: 10 }}>
+              Learn More
+            </Button> */}
           </CardActions>
         </Card>
       </Box>

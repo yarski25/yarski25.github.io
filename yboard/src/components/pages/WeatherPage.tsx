@@ -7,6 +7,7 @@ import { useFetching } from "../../hooks/useFetching";
 import { Current } from "../../types/Current";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import MyCard from "../card/MyCard";
+import Input from "../ui/Input/Input";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
@@ -105,11 +106,14 @@ const WeatherPage = () => {
       <div className="weather-page__input">
         <TextField
           id="outlined-basic"
-          label="City"
+          label="city"
           variant="outlined"
           color="secondary"
-          size="small"
+          //helperText="Please enter a valid input"
+          // //size="small"
+          // sx={{ width: "300px", height: "200px" }}
         />
+        {/* <Input id="outline-basic" label="City" variant="outlined" /> */}
         <Button onClick={handleOnClick} variant="contained" color="secondary">
           Get location
         </Button>
@@ -118,7 +122,7 @@ const WeatherPage = () => {
         {isDataLoading && (
           <Stack
             margin="auto"
-            minHeight="80vh"
+            minHeight="80dvh"
             //direction="column"
             justifyContent="center"
             alignItems="center"
