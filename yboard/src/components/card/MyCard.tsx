@@ -8,8 +8,8 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { DeepPartial } from "../../types/types/DeepPartial";
-import { Current } from "../../types/interfaces/Current";
+import { DeepPartial } from "../../types/custom/DeepPartial";
+import { Current } from "../../types/Current";
 
 type MyCardProps = {
   weatherData?: DeepPartial<Current>;
@@ -21,7 +21,8 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
     <div>
       <Box
         sx={{
-          maxWidth: "10rem",
+          //maxWidth: "20rem",
+          minWidth: "10dvw",
           margin: "auto",
           marginTop: "2rem",
           boxShadow: 10,
@@ -67,6 +68,9 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {weatherData?.wind_ms} m/s
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              air quality: {weatherData?.current?.air_quality?.["us-epa-index"]}
             </Typography>
           </CardContent>
           <CardActions>

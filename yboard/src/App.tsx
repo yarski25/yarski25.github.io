@@ -1,9 +1,9 @@
-import "./App.css";
+import "./App.scss";
 import WeatherPage from "./components/pages/WeatherPage";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <WeatherPage />
     </div>
   );

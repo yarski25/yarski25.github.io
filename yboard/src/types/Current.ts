@@ -1,12 +1,23 @@
 import { Location } from "./Location";
 
-interface Condition {
+export type Condition = {
   text: string;
   icon: string;
   code: number | string;
-}
+};
 
-interface WeatherData {
+export type AirQuality = {
+  co: string | number;
+  no2: string | number;
+  o3: string | number;
+  so2: string | number;
+  pm2_5: string | number;
+  pm10: string | number;
+  "us-epa-index": string | number;
+  "gb-defra-index": string | number;
+};
+
+export type WeatherData = {
   last_updated: string;
   temp_c: number | string;
   temp_f: number | string;
@@ -27,13 +38,28 @@ interface WeatherData {
   uv: number | string;
   gust_mph: number | string;
   gust_kph: number | string;
-}
+  air_quality: AirQuality;
+};
 
-export interface OriginCurrent {
+export type OriginCurrent = {
   location: Location;
   current: WeatherData;
-}
+};
 
-export interface Current extends OriginCurrent {
+type CustomCurrent = {
   wind_ms?: string;
-}
+};
+
+export type Current = OriginCurrent & CustomCurrent;
+
+// export interface Current extends OriginCurrent {
+//   wind_ms?: string;
+// }
+
+// export const TestType = Object({
+//   current: Object({
+//     temp_c: Number,
+//   }),
+// });
+
+// export type TestType = ReturnType<typeof TestType>;

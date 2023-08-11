@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { CircularProgress, TextField } from "@mui/material";
+import { CircularProgress, Stack, TextField, makeStyles } from "@mui/material";
 import { Coords } from "../../types/Coords";
 import WeatherService from "../../api/WeatherService";
 import { useFetching } from "../../hooks/useFetching";
-import { Current } from "../../types/interfaces/Current";
-import { DeepPartial } from "../../types/types/DeepPartial";
+import { Current } from "../../types/Current";
+import { DeepPartial } from "../../types/custom/DeepPartial";
 import MyCard from "../card/MyCard";
 
 const WeatherPage = () => {
@@ -16,15 +16,17 @@ const WeatherPage = () => {
       region: "",
       country: "",
     },
+    temp_c: "",
     current: {
-      temp_c: "",
       condition: { text: "", icon: "" },
       wind_kph: "",
       wind_degree: "",
       wind_dir: "",
+      air_quality: { "us-epa-index": "" },
     },
     wind_ms: "",
   } as DeepPartial<Current>);
+
   const [weatherRequest, setWeatherRequest] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -55,12 +57,22 @@ const WeatherPage = () => {
           icon: "https:" + response.data.current.condition.icon,
           text: response.data.current.condition.text,
         },
+        air_quality: {
+          ...initWeather.current?.air_quality,
+          "us-epa-index": response.data.current.air_quality["us-epa-index"],
+        },
       },
       wind_ms: (((response.data.current.wind_kph as number) * 1000) / 3600)
         .toFixed(0)
         .toString(),
     }));
   });
+
+  // const [fetchTestData, isTestDataLoading, testDataError] = useFetching(
+  //   async (city: string) => {
+  //     const testResponse = await WeatherService.getByCityName("Prague");
+  //   }
+  // );
 
   useEffect(() => {
     if (position.lat && position.lon) {
@@ -90,20 +102,33 @@ const WeatherPage = () => {
 
   return (
     <div className="weather-page">
-      <TextField
-        id="outlined-basic"
-        label="Outlined"
-        variant="outlined"
-        color="secondary"
-        size="small"
-      />
-      <Button onClick={handleOnClick} variant="contained" color="secondary">
-        Get location
-      </Button>
-      {isDataLoading && (
-        <CircularProgress sx={{ color: "secondary", margin: "auto" }} />
-      )}
-      {weatherRequest && <MyCard weatherData={currentWeather} />}
+      <div className="weather-page__input">
+        <TextField
+          id="outlined-basic"
+          label="City"
+          variant="outlined"
+          color="secondary"
+          size="small"
+        />
+        <Button onClick={handleOnClick} variant="contained" color="secondary">
+          Get location
+        </Button>
+      </div>
+      <div className="weather-page__output">
+        {isDataLoading && (
+          <Stack
+            margin="auto"
+            minHeight="80vh"
+            //direction="column"
+            justifyContent="center"
+            alignItems="center"
+            // spacing={5}
+          >
+            <CircularProgress sx={{ color: "secondary" }} />
+          </Stack>
+        )}
+        {currentWeather.wind_ms && <MyCard weatherData={currentWeather} />}
+      </div>
     </div>
   );
 };

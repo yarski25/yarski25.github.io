@@ -1,4 +1,4 @@
-export interface Location {
+export type Location = {
   name: string;
   region: string;
   country: string;
@@ -7,4 +7,4 @@ export interface Location {
   tz_id: string;
   localtime_epoch: number;
   localtime: string;
-}
+};
