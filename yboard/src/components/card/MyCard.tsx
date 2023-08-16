@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import Button from "@mui/material/Button";
 import {
   Box,
   Card,
@@ -9,15 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import { DeepPartial } from "../../types/custom/DeepPartial";
-import { Current } from "../../types/Current";
-import { Hour, Weather } from "../../types/Forecast";
+import { Weather } from "../../types/Forecast";
 
 type MyCardProps = {
+  day: number;
+  hour: number;
   weatherData?: DeepPartial<Weather>;
   style?: React.CSSProperties;
 };
 
-const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
+const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
   return (
     <div>
       <Box
@@ -59,19 +59,32 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
               component="img"
               width="100"
               //height="100"
-              image={weatherData?.current?.condition?.icon}
-              alt={weatherData?.current?.condition?.text}
+              image={
+                weatherData?.forecast?.forecastday?.[day].day?.condition?.icon
+              }
+              alt={
+                weatherData?.forecast?.forecastday?.[day].day?.condition?.text
+              }
               //sx={{ objectFit: "contain" }}
             />
             <Typography variant="h5" component="div" sx={{ fontSize: "1em" }}>
-              {weatherData?.current?.temp_c}℃
+              {day > 0
+                ? weatherData?.forecast?.forecastday?.[day].day?.avgtemp_c
+                : weatherData?.current?.temp_c}
+              ℃
             </Typography>
             <Typography
               sx={{ mb: 1.5, fontSize: "0.5em" }}
               color="text.secondary"
             >
-              {weatherData?.current?.wind_kph} km/h{" "}
-              {weatherData?.current?.wind_dir}
+              {day > 0
+                ? weatherData?.forecast?.forecastday?.[day].day?.maxwind_kph
+                : weatherData?.current?.wind_kph}{" "}
+              km/h{" "}
+              {day > 0
+                ? weatherData?.forecast?.forecastday?.[day].hour?.[hour]
+                    .wind_dir
+                : weatherData?.current?.wind_dir}
             </Typography>
             <Typography
               sx={{ mb: 1.5, fontSize: "0.5em" }}
@@ -83,7 +96,15 @@ const MyCard = ({ weatherData }: PropsWithChildren<MyCardProps>) => {
               sx={{ mb: 1.5, fontSize: "0.5em" }}
               color="text.secondary"
             >
-              air quality: {weatherData?.current?.air_quality?.["us-epa-index"]}
+              air quality:
+              {day > 0 &&
+              weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
+                "us-epa-index"
+              ]
+                ? weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
+                    "us-epa-index"
+                  ]
+                : weatherData?.current?.air_quality?.["us-epa-index"]}
             </Typography>
           </CardContent>
           <CardActions>

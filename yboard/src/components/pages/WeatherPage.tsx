@@ -157,9 +157,9 @@ const WeatherPage = () => {
           </Stack>
         )}
         {weather?.current?.temp_c &&
-          weather?.forecast?.forecastday?.map((forecast) => (
+          weather?.forecast?.forecastday?.map((forecast, index: number) => (
             <div>
-              <MyCard weatherData={weather} />
+              <MyCard key={index} day={index} hour={12} weatherData={weather} />
             </div>
           ))}
         {/* {weather?.forecast?.forecastday?.[0].hour?.[0].temp_c &&
