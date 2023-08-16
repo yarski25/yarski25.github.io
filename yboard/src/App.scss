@@ -24,14 +24,65 @@
     display: flex;
     justify-content: center;
     //border: 2px solid green;
+
+    &__card {
+      animation: test 3s 1s infinite;
+      animation-delay: 2s;
+    }
   }
 }
 
+@keyframes test {
+  0% {
+    position: absolute;
+    opacity: 0;
+    right: 0dvw;
+    //justify-content: left;
+  }
+  25% {
+    position: absolute;
+    right: 50dvw-16dvw;
+    //justify-content: right;
+  }
+  100% {
+    position: absolute;
+    opacity: 1;
+    right: 100dvw-16dvw;
+    //justify-content: left;
+  }
+  // 75% {
+  //   position: absolute;
+  //   left: 0px;
+  //   right: 0px;
+  //   //justify-content: right;
+  // }
+  // 100% {
+  //   position: absolute;
+  //   //justify-content: right;
+  //   left: 100px;
+  //   right: 100px;
+  // }
+}
+
+@keyframes colorchange {
+  0% {
+    background-color: red;
+  }
+  50% {
+    background-color: yellow;
+  }
+  70% {
+    background-color: blue;
+  }
+  100% {
+    background-color: green;
+  }
+}
 /* @media screen and (min-width: 480px) {
 } */
 
-@media (min-width: 20em) {
+@media (min-width: 360px) {
   .weather-page {
-    background-color: white;
+    background-color: whitesmoke;
   }
 }

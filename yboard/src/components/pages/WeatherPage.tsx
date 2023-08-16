@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Button from "@mui/material/Button";
 import { CircularProgress, Stack, TextField, makeStyles } from "@mui/material";
 import { Coords } from "../../types/Coords";
@@ -38,6 +38,9 @@ const WeatherPage = () => {
 
   const [weatherRequest, setWeatherRequest] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  // const [onOff, setOnOff] = useState(true)
+  // const [isPending, startTransition] = useTransition() // (state, timeout)
 
   const [fetchData, isDataLoading, dataError] = useFetching(async () => {
     const response = await WeatherService.getForecast(
@@ -158,10 +161,9 @@ const WeatherPage = () => {
         )}
         {weather?.current?.temp_c &&
           weather?.forecast?.forecastday?.map((forecast, index: number) => (
-            <div>
-              <MyCard key={index} day={index} hour={12} weatherData={weather} />
-            </div>
+            <MyCard key={index} day={index} hour={12} weatherData={weather} />
           ))}
+
         {/* {weather?.forecast?.forecastday?.[0].hour?.[0].temp_c &&
           weather.forecast.forecastday[0].hour[0].temp_c} */}
         {/* {weather?.current?.temp_c && <MyCard weatherData={weather} />} */}

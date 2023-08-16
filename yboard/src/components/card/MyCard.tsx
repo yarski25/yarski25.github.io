@@ -19,7 +19,7 @@ type MyCardProps = {
 
 const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
   return (
-    <div>
+    <div className="weather-page__output__card">
       <Box
         sx={{
           //maxWidth: "15dvw",
