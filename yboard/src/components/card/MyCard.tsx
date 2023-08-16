@@ -10,9 +10,10 @@ import {
 } from "@mui/material";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import { Current } from "../../types/Current";
+import { Hour, Weather } from "../../types/Forecast";
 
 type MyCardProps = {
-  weatherData?: DeepPartial<Current>;
+  weatherData?: DeepPartial<Weather>;
   style?: React.CSSProperties;
 };
 

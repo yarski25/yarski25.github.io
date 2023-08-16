@@ -7,10 +7,18 @@ import { useFetching } from "../../hooks/useFetching";
 import { Current } from "../../types/Current";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import MyCard from "../card/MyCard";
-import Input from "../ui/Input/Input";
+import { Forecast, ForecastDay, Hour, Weather } from "../../types/Forecast";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
+
+  const [weather, setWeather] = useState<DeepPartial<Weather>>();
+
+  const [forecastWeather, setForecastWeather] =
+    useState<DeepPartial<ForecastDay[]>>();
+
+  //let forecastWeather: DeepPartial<Forecast> = {};
+
   const [currentWeather, setCurrentWeather] = useState<DeepPartial<Current>>({
     location: {
       name: "",
@@ -32,41 +40,58 @@ const WeatherPage = () => {
   const [error, setError] = useState<string>("");
 
   const [fetchData, isDataLoading, dataError] = useFetching(async () => {
-    const response = await WeatherService.getByCoords({
-      lat: position.lat,
-      lon: position.lon,
-    });
+    const response = await WeatherService.getForecast(
+      {
+        lat: position.lat,
+        lon: position.lon,
+      },
+      "7"
+    );
 
-    setCurrentWeather((initWeather) => ({
-      ...initWeather,
-      location: {
-        ...initWeather.location,
-        name: response.data.location.name,
-        region: response.data.location.region,
-        country: response.data.location.country,
-      },
-      current: {
-        ...initWeather.current,
-        temp_c: response.data.current.temp_c.toString(),
-        wind_kph: (response.data.current.wind_kph as number)
-          .toFixed(0)
-          .toString(),
-        wind_degree: response.data.current.wind_degree.toString(),
-        wind_dir: response.data.current.wind_dir,
-        condition: {
-          ...initWeather.current?.condition,
-          icon: "https:" + response.data.current.condition.icon,
-          text: response.data.current.condition.text,
-        },
-        air_quality: {
-          ...initWeather.current?.air_quality,
-          "us-epa-index": response.data.current.air_quality["us-epa-index"],
-        },
-      },
-      wind_ms: (((response.data.current.wind_kph as number) * 1000) / 3600)
-        .toFixed(0)
-        .toString(),
-    }));
+    setWeather(response.data);
+    //setForecastWeather(response.data?.forecastday);
+
+    // response.data.forecastday.map(
+    //   (forecastday: ForecastDay) => forecastday.hour
+    // );
+
+    // forecastWeather = response.data;
+
+    // const response = await WeatherService.getByCoords({
+    //   lat: position.lat,
+    //   lon: position.lon,
+    // });
+
+    // setCurrentWeather((initWeather) => ({
+    //   ...initWeather,
+    //   location: {
+    //     ...initWeather.location,
+    //     name: response.data.location.name,
+    //     region: response.data.location.region,
+    //     country: response.data.location.country,
+    //   },
+    //   current: {
+    //     ...initWeather.current,
+    //     temp_c: response.data.current.temp_c.toString(),
+    //     wind_kph: (response.data.current.wind_kph as number)
+    //       .toFixed(0)
+    //       .toString(),
+    //     wind_degree: response.data.current.wind_degree.toString(),
+    //     wind_dir: response.data.current.wind_dir,
+    //     condition: {
+    //       ...initWeather.current?.condition,
+    //       icon: "https:" + response.data.current.condition.icon,
+    //       text: response.data.current.condition.text,
+    //     },
+    //     air_quality: {
+    //       ...initWeather.current?.air_quality,
+    //       "us-epa-index": response.data.current.air_quality["us-epa-index"],
+    //     },
+    //   },
+    //   wind_ms: (((response.data.current.wind_kph as number) * 1000) / 3600)
+    //     .toFixed(0)
+    //     .toString(),
+    // }));
   });
 
   // const [fetchTestData, isTestDataLoading, testDataError] = useFetching(
@@ -131,7 +156,15 @@ const WeatherPage = () => {
             <CircularProgress sx={{ color: "secondary" }} />
           </Stack>
         )}
-        {currentWeather.wind_ms && <MyCard weatherData={currentWeather} />}
+        {weather?.current?.temp_c &&
+          weather?.forecast?.forecastday?.map((forecast) => (
+            <div>
+              <MyCard weatherData={weather} />
+            </div>
+          ))}
+        {/* {weather?.forecast?.forecastday?.[0].hour?.[0].temp_c &&
+          weather.forecast.forecastday[0].hour[0].temp_c} */}
+        {/* {weather?.current?.temp_c && <MyCard weatherData={weather} />} */}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { AirQuality, Condition, WeatherData } from "./Current";
+import { AirQuality, Condition, Current, WeatherData } from "./Current";
 
 type Day = {
   maxtemp_c: number | string;
@@ -31,7 +31,7 @@ type CustomHour = {
   chance_of_snow: number | string;
 };
 
-type Hour = WeatherData & CustomHour;
+export type Hour = WeatherData & CustomHour;
 
 type Astro = {
   sunrise: string;
@@ -44,13 +44,19 @@ type Astro = {
   is_sun_up: number | string;
 };
 
-type ForecastDay = {
+export type ForecastDay = {
   date: string;
   day: Day;
   astro: Astro;
-  hour: Hour;
+  hour: Array<Hour>;
 };
 
-type Forecast = {
-  forecastday: ForecastDay[];
+type ForecastBase = {
+  forecastday: Array<ForecastDay>;
 };
+
+export type Forecast = {
+  forecast: ForecastBase;
+};
+
+export type Weather = Current & Forecast;
