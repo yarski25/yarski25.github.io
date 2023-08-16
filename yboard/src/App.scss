@@ -26,29 +26,34 @@
     //border: 2px solid green;
 
     &__card {
-      animation: test 3s 1s infinite;
-      animation-delay: 2s;
+      position: relative;
+      margin-top: 0.8em;
+      margin-right: 0.8em;
+      opacity: 0;
+      animation: test 3s 1s forwards;
+      //animation-delay: 2s;
     }
   }
 }
 
 @keyframes test {
-  0% {
-    position: absolute;
+  from {
+    //position: relative;
+    margin-top: 0.8em;
+    margin-right: 0.8em;
     opacity: 0;
-    right: 0dvw;
-    //justify-content: left;
+    //right: 0dvw;
   }
-  25% {
-    position: absolute;
-    right: 50dvw-16dvw;
-    //justify-content: right;
-  }
-  100% {
-    position: absolute;
+  // 25% {
+  //   //position: absolute;
+  //   //right: 50dvw-16dvw;
+  //}
+  to {
+    //position: absolute;
     opacity: 1;
-    right: 100dvw-16dvw;
-    //justify-content: left;
+    margin-top: 0;
+    margin-right: 0;
+    //right: 100dvw-16dvw;
   }
   // 75% {
   //   position: absolute;
@@ -83,6 +88,6 @@
 
 @media (min-width: 360px) {
   .weather-page {
-    background-color: whitesmoke;
+    //background-color: whitesmoke;
   }
 }
