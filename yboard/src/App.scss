@@ -22,6 +22,7 @@
 
   &__output {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     //border: 2px solid green;
 
@@ -34,6 +35,21 @@
       //animation-delay: 2s;
     }
   }
+}
+
+.my-node-enter {
+  opacity: 0;
+}
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
 }
 
 @keyframes test {
@@ -86,8 +102,8 @@
 /* @media screen and (min-width: 480px) {
 } */
 
-@media (min-width: 360px) {
-  .weather-page {
-    //background-color: whitesmoke;
+@media (max-width: 300px) {
+  .weather-page__output {
+    flex-direction: column;
   }
 }

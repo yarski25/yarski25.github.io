@@ -1,4 +1,10 @@
-import { useEffect, useState, useTransition } from "react";
+import React, {
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import Button from "@mui/material/Button";
 import { CircularProgress, Stack, TextField, makeStyles } from "@mui/material";
 import { Coords } from "../../types/Coords";
@@ -8,6 +14,12 @@ import { Current } from "../../types/Current";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import MyCard from "../card/MyCard";
 import { Forecast, ForecastDay, Hour, Weather } from "../../types/Forecast";
+import {
+  CSSTransition,
+  Transition,
+  TransitionGroup,
+} from "react-transition-group";
+import { TransitionProps } from "react-transition-group/Transition";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
@@ -129,6 +141,23 @@ const WeatherPage = () => {
     }
   };
 
+  const duration = 300;
+
+  const defaultStyle = {
+    transition: `opacity ${duration}ms ease-in-out`,
+    opacity: 0,
+  };
+
+  const transitionStyles: { [id: string]: React.CSSProperties } = {
+    entering: { opacity: 1 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 },
+  };
+
+  const inProp = false;
+  const nodeRef = useRef(null);
+
   return (
     <div className="weather-page">
       <div className="weather-page__input">
@@ -163,10 +192,31 @@ const WeatherPage = () => {
           weather?.forecast?.forecastday?.map((forecast, index: number) => (
             <MyCard key={index} day={index} hour={12} weatherData={weather} />
           ))}
-
-        {/* {weather?.forecast?.forecastday?.[0].hour?.[0].temp_c &&
-          weather.forecast.forecastday[0].hour[0].temp_c} */}
-        {/* {weather?.current?.temp_c && <MyCard weatherData={weather} />} */}
+        {/* <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
+          {(state) => (
+            <div
+              ref={nodeRef}
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+            >
+              I'm a fade Transition!
+            </div>
+          )}
+        </Transition> */}
+        {/* <TransitionGroup
+          in={inProp}
+          timeout={200}
+          classNames="my-node"
+          unmountOnExit={true}
+        >
+          {weather?.current?.temp_c && weather?.forecast?.forecastday?.map((id: number , forecast ) => (
+            <CSSTransition in={loaded} key={id} timeout={500} classNames="item">
+              <MyCard key={id} day={id} hour={12} weatherData={weather} />
+            </CSSTransition>
+          ))}
+        </TransitionGroup> */}
       </div>
     </div>
   );

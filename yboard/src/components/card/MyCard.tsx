@@ -59,17 +59,24 @@ const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
               component="img"
               width="100"
               //height="100"
+
               image={
-                weatherData?.forecast?.forecastday?.[day].day?.condition?.icon
+                day > 0
+                  ? weatherData?.forecast?.forecastday?.[day].day?.condition
+                      ?.icon
+                  : weatherData?.current?.condition?.icon
               }
               alt={
-                weatherData?.forecast?.forecastday?.[day].day?.condition?.text
+                day > 0
+                  ? weatherData?.forecast?.forecastday?.[day].day?.condition
+                      ?.text
+                  : weatherData?.current?.condition?.text
               }
               //sx={{ objectFit: "contain" }}
             />
             <Typography variant="h5" component="div" sx={{ fontSize: "1em" }}>
               {day > 0
-                ? weatherData?.forecast?.forecastday?.[day].day?.avgtemp_c
+                ? weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c
                 : weatherData?.current?.temp_c}
               ℃
             </Typography>
@@ -90,7 +97,20 @@ const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
               sx={{ mb: 1.5, fontSize: "0.5em" }}
               color="text.secondary"
             >
-              {weatherData?.wind_ms} m/s
+              {day > 0
+                ? (
+                    ((weatherData?.forecast?.forecastday?.[day].day
+                      ?.maxwind_kph as number) *
+                      1000) /
+                    3600
+                  )
+                    .toFixed(0)
+                    .toString()
+                : (((weatherData?.current?.wind_kph as number) * 1000) / 3600)
+                    .toFixed(0)
+                    .toString()}{" "}
+              m/s
+              {/* {weatherData?.wind_ms} m/s */}
             </Typography>
             <Typography
               sx={{ mb: 1.5, fontSize: "0.5em" }}
