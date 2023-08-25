@@ -22,18 +22,63 @@
 
   &__output {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: center;
     //border: 2px solid green;
 
-    &__card {
-      position: relative;
-      margin-top: 0.8em;
-      margin-right: 0.8em;
-      opacity: 0;
-      animation: test 3s 1s forwards;
+    &__location {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+
+    &__cards {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      // &__card {
+      //   display: flex;
+      //   flex-direction: row;
+      //   justify-content: center;
+      //   margin: 1em 0.3em 0em 0.3em;
+      //   width: 20dvw;
+      //   height: 60dvh;
+      // }
+      // align-items: center;
+      // margin: 1em 0.3em 0em 0.3em;
+      // width: 20dvw;
+      // height: 60dvh;
+      //position: relative;
+      //opacity: 0;
+      //animation: test 3s 1s forwards;
       //animation-delay: 2s;
     }
+  }
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 1em;
+  flex-shrink: 0.9;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: black;
+    color: white;
+    font-size: xx-large;
+    margin: 1em 0.3em 0em 0.3em;
+    width: 20dvw;
+    height: 60dvh;
+    border: 3px solid orange;
   }
 }
 
@@ -42,14 +87,14 @@
 }
 .my-node-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transition: opacity 2000ms;
 }
 .my-node-exit {
   opacity: 1;
 }
 .my-node-exit-active {
   opacity: 0;
-  transition: opacity 200ms;
+  transition: opacity 2000ms;
 }
 
 @keyframes test {
@@ -102,8 +147,19 @@
 /* @media screen and (min-width: 480px) {
 } */
 
-@media (max-width: 300px) {
-  .weather-page__output {
-    flex-direction: column;
-  }
-}
+// @media screen and (max-width: 360px) {
+//   .weather-page__output {
+//     flex-direction: column;
+
+//     &__card {
+//       width: 90dvw;
+//       height: 20dvh;
+//     }
+//   }
+// }
+
+// @media (max-width: 300px) {
+//   .weather-page__output {
+//     flex-direction: column;
+//   }
+// }

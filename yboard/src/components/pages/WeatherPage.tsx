@@ -1,12 +1,12 @@
-import React, {
-  PropsWithChildren,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
-import { CircularProgress, Stack, TextField, makeStyles } from "@mui/material";
+import {
+  CircularProgress,
+  Stack,
+  TextField,
+  Typography,
+  makeStyles,
+} from "@mui/material";
 import { Coords } from "../../types/Coords";
 import WeatherService from "../../api/WeatherService";
 import { useFetching } from "../../hooks/useFetching";
@@ -19,7 +19,6 @@ import {
   Transition,
   TransitionGroup,
 } from "react-transition-group";
-import { TransitionProps } from "react-transition-group/Transition";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
@@ -48,7 +47,6 @@ const WeatherPage = () => {
     wind_ms: "",
   } as DeepPartial<Current>);
 
-  const [weatherRequest, setWeatherRequest] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   // const [onOff, setOnOff] = useState(true)
@@ -118,7 +116,6 @@ const WeatherPage = () => {
   useEffect(() => {
     if (position.lat && position.lon) {
       fetchData();
-      setWeatherRequest(true);
     }
   }, [position]);
 
@@ -157,6 +154,8 @@ const WeatherPage = () => {
 
   const inProp = false;
   const nodeRef = useRef(null);
+  const test: DeepPartial<Weather> = {};
+  const testArray = [1, 2, 3, 4, 5];
 
   return (
     <div className="weather-page">
@@ -166,11 +165,7 @@ const WeatherPage = () => {
           label="city"
           variant="outlined"
           color="secondary"
-          //helperText="Please enter a valid input"
-          // //size="small"
-          // sx={{ width: "300px", height: "200px" }}
         />
-        {/* <Input id="outline-basic" label="City" variant="outlined" /> */}
         <Button onClick={handleOnClick} variant="contained" color="secondary">
           Get location
         </Button>
@@ -180,18 +175,56 @@ const WeatherPage = () => {
           <Stack
             margin="auto"
             minHeight="80dvh"
-            //direction="column"
             justifyContent="center"
             alignItems="center"
-            // spacing={5}
           >
             <CircularProgress sx={{ color: "secondary" }} />
           </Stack>
         )}
-        {weather?.current?.temp_c &&
-          weather?.forecast?.forecastday?.map((forecast, index: number) => (
-            <MyCard key={index} day={index} hour={12} weatherData={weather} />
-          ))}
+        {weather?.current?.temp_c && (
+          <div className="weather-page__output__location">
+            <Typography
+              variant="h2"
+              sx={{ fontSize: "0.8em" }}
+              color="text.secondary"
+              gutterBottom
+              marginTop="0.5em"
+            >
+              {weather?.location?.country}
+            </Typography>
+            <Typography
+              variant="h3"
+              component="div"
+              sx={{ fontSize: "0.8em" }}
+              gutterBottom
+            >
+              {weather?.location?.region} - {weather?.location?.name}
+            </Typography>
+            <Typography variant="h2" component="div" sx={{ fontSize: "0.5em" }}>
+              GPS: {weather?.location?.lat}, {weather?.location?.lon}
+            </Typography>
+          </div>
+        )}
+
+        {weather?.current?.temp_c && (
+          <div className="weather-page__output__cards">
+            {weather?.forecast?.forecastday?.map((forecast, index: number) => (
+              <MyCard key={index} day={index} hour={12} weatherData={weather} />
+            ))}
+          </div>
+        )}
+        {/* <div className="test">
+          <div className="test__item">1 </div>
+          <div className="test__item">2 </div>
+          <div className="test__item">3 </div>
+          <div className="test__item">4 </div>
+          <div className="test__item">5 </div>
+          <div className="test__item">6 </div>
+          <div className="test__item">7 </div>
+          <div className="test__item">8 </div>
+          <div className="test__item">9 </div>
+        </div> */}
+
         {/* <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
           {(state) => (
             <div
@@ -205,17 +238,14 @@ const WeatherPage = () => {
             </div>
           )}
         </Transition> */}
-        {/* <TransitionGroup
-          in={inProp}
-          timeout={200}
-          classNames="my-node"
-          unmountOnExit={true}
-        >
-          {weather?.current?.temp_c && weather?.forecast?.forecastday?.map((id: number , forecast ) => (
-            <CSSTransition in={loaded} key={id} timeout={500} classNames="item">
-              <MyCard key={id} day={id} hour={12} weatherData={weather} />
-            </CSSTransition>
-          ))}
+        {/* 
+        <TransitionGroup>
+          {weather?.current?.temp_c &&
+            weather?.forecast?.forecastday?.map((_forecast, id: number) => (
+              <CSSTransition key={id} timeout={5000} classNames="my-node">
+                <MyCard key={id} day={id} hour={12} weatherData={weather} />
+              </CSSTransition>
+            ))}
         </TransitionGroup> */}
       </div>
     </div>
