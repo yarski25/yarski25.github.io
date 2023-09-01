@@ -1,17 +1,23 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import {
   Box,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Collapse,
+  IconButton,
+  IconButtonProps,
   SxProps,
   Typography,
+  styled,
 } from "@mui/material";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import { Weather } from "../../types/Forecast";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 type MyCardProps = {
+  index: number;
   day: number;
   hour: number;
   weatherData?: DeepPartial<Weather>;
@@ -44,7 +50,64 @@ const CardContentProps: SxProps = {
   padding: "0.5em",
 };
 
-const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
+const SBoxProps: SxProps = {
+  minWidth: "1dvw",
+  margin: "2dvw",
+  marginTop: "2rem",
+  width: "100%",
+  boxShadow: 10,
+  borderRadius: "1em",
+};
+
+const SCardProps: SxProps = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  border: "2px solid purple",
+  borderRadius: "1em",
+  backgroundColor: "#af52bfa1",
+  boxSizing: "box-border",
+};
+
+const SCardContentProps: SxProps = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  padding: "0.5em",
+};
+
+type variant = "small" | "normal";
+
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+  //[expand: string]: boolean
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+const MyCard = ({
+  weatherData,
+  day,
+  hour,
+  index,
+}: PropsWithChildren<MyCardProps>) => {
+  const [expanded, setExpanded] = useState(false);
+  const [expandedId, setExpandedId] = useState(-1);
+
+  const handleExpandClick = (id: number) => {
+    setExpandedId(expandedId === id ? -1 : id);
+    //setExpanded(!expanded ? expanded : expanded);
+  };
+
   return (
     //<div className="weather-page__output__card">
     <Box sx={BoxProps}>
@@ -117,7 +180,34 @@ const MyCard = ({ weatherData, day, hour }: PropsWithChildren<MyCardProps>) => {
               : weatherData?.current?.air_quality?.["us-epa-index"]}
           </Typography>
         </CardContent>
-        <CardActions></CardActions>
+        <CardActions>
+          <ExpandMore
+            expand={expandedId === index}
+            onClick={() => handleExpandClick(index)}
+            aria-expanded={expandedId === index}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expandedId === index} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography
+              sx={{ mb: 1.5, fontSize: "0.5em" }}
+              color="text.secondary"
+            >
+              air quality:
+              {day > 0 &&
+              weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
+                "us-epa-index"
+              ]
+                ? weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
+                    "us-epa-index"
+                  ]
+                : weatherData?.current?.air_quality?.["us-epa-index"]}
+            </Typography>
+          </CardContent>
+        </Collapse>
       </Card>
     </Box>
     //</div>

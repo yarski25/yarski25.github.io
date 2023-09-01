@@ -209,7 +209,13 @@ const WeatherPage = () => {
         {weather?.current?.temp_c && (
           <div className="weather-page__output__cards">
             {weather?.forecast?.forecastday?.map((forecast, index: number) => (
-              <MyCard key={index} day={index} hour={12} weatherData={weather} />
+              <MyCard
+                index={index}
+                key={index}
+                day={index}
+                hour={12}
+                weatherData={weather}
+              />
             ))}
           </div>
         )}
