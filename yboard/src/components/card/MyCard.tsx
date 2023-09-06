@@ -8,13 +8,14 @@ import {
   Collapse,
   IconButton,
   IconButtonProps,
-  SxProps,
   Typography,
   styled,
 } from "@mui/material";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import { Weather } from "../../types/Forecast";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { BoxProps, CardContentProps, CardProps } from "../../styles/card";
+import { ExpandMore } from "../ui/buttons/ExpandMore";
 
 type MyCardProps = {
   index: number;
@@ -24,75 +25,7 @@ type MyCardProps = {
   style?: React.CSSProperties;
 };
 
-const BoxProps: SxProps = {
-  minWidth: "1dvw",
-  margin: "2dvw",
-  marginTop: "2rem",
-  width: "100%",
-  boxShadow: 10,
-  borderRadius: "1em",
-};
-
-const CardProps: SxProps = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  border: "2px solid purple",
-  borderRadius: "1em",
-  backgroundColor: "#af52bfa1",
-  boxSizing: "box-border",
-};
-
-const CardContentProps: SxProps = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  padding: "0.5em",
-};
-
-const SBoxProps: SxProps = {
-  minWidth: "1dvw",
-  margin: "2dvw",
-  marginTop: "2rem",
-  width: "100%",
-  boxShadow: 10,
-  borderRadius: "1em",
-};
-
-const SCardProps: SxProps = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  border: "2px solid purple",
-  borderRadius: "1em",
-  backgroundColor: "#af52bfa1",
-  boxSizing: "box-border",
-};
-
-const SCardContentProps: SxProps = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  padding: "0.5em",
-};
-
 type variant = "small" | "normal";
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-  //[expand: string]: boolean
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 const MyCard = ({
   weatherData,
@@ -100,7 +33,6 @@ const MyCard = ({
   hour,
   index,
 }: PropsWithChildren<MyCardProps>) => {
-  const [expanded, setExpanded] = useState(false);
   const [expandedId, setExpandedId] = useState(-1);
 
   const handleExpandClick = (id: number) => {
@@ -129,7 +61,7 @@ const MyCard = ({
                 : weatherData?.current?.condition?.text
             }
           />
-          <Typography variant="h5" component="div" sx={{ fontSize: "1em" }}>
+          <Typography variant="h5" component="div" sx={{ fontSize: "1.2em" }}>
             {day > 0
               ? weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c
               : weatherData?.current?.temp_c}

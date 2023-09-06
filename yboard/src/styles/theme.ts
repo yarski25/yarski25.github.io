@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { blue, purple, yellow } from "@mui/material/colors";
+import { blue, purple } from "@mui/material/colors";
 
 // colors
 // most expensive
