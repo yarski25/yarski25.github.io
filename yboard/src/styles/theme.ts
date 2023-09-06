@@ -1,7 +1,38 @@
 import { createTheme } from "@mui/material";
+import { blue, purple, yellow } from "@mui/material/colors";
+
+// colors
+// most expensive
+
+// YInMn Blue
+// #2E5090
+// Lapis Lazuli
+// #26619C
+// Tyrian Purple
+// #66023C
+
+// combinations
+// Mauve, sapphire and powder blue
+// #d9a5b3, #1868ae, #c6d7eb
+
+// Raspberry and shades of blue
+// #8a307f, #79a7d3, #6883bc
+
+// Sea-foam, salmon and navy
+// #aed6dc, #ff9a8d, #4a536b
 
 export const theme = createTheme({
   palette: {
+    primary: {
+      light: blue[200],
+      main: blue[500],
+      dark: blue[700],
+    },
+    secondary: {
+      light: purple[200],
+      main: purple[500],
+      dark: purple[700],
+    },
     background: {
       paper: "#fff",
     },
