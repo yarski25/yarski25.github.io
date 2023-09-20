@@ -19,6 +19,7 @@ import {
   Transition,
   TransitionGroup,
 } from "react-transition-group";
+import StyledCard from "../card/StyledCard";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
@@ -210,7 +211,14 @@ const WeatherPage = () => {
         {weather?.current?.temp_c && (
           <div className="weather-page__output__cards">
             {weather?.forecast?.forecastday?.map((forecast, index: number) => (
-              <MyCard
+              // <MyCard
+              //   index={index}
+              //   key={index}
+              //   day={index}
+              //   hour={12}
+              //   weatherData={weather}
+              // />
+              <StyledCard
                 index={index}
                 key={index}
                 day={index}

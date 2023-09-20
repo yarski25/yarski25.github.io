@@ -2,8 +2,10 @@ import {
   Button,
   CssBaseline,
   PaletteMode,
+  StyledEngineProvider,
   ThemeProvider,
   createTheme,
+  styled,
 } from "@mui/material";
 import "./App.scss";
 import WeatherPage from "./components/pages/WeatherPage";
@@ -13,6 +15,7 @@ import { lightTheme } from "./styles/light";
 import { darkTheme } from "./styles/dark";
 import { ColorContext } from "./types/ColorContext";
 import SwitchModeButton from "./components/ui/buttons/SwitchModeButton";
+import TestComponent from "./components/test/TestComponent";
 
 function App() {
   const [mode, setMode] = useState<PaletteMode>("light");
@@ -34,15 +37,20 @@ function App() {
   );
 
   return (
-    <div className="app">
-      <ColorContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline enableColorScheme />
-          <SwitchModeButton />
-          <WeatherPage />
-        </ThemeProvider>
-      </ColorContext.Provider>
-    </div>
+    <StyledEngineProvider injectFirst>
+      <div className="app">
+        <ColorContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline enableColorScheme />
+            <SwitchModeButton />
+            {/* <MyComponent color="primary">My Component</MyComponent> */}
+            {/* <TestComponent /> */}
+            {/* <MyCardComponent index={1} day={1} hour={12} /> */}
+            <WeatherPage />
+          </ThemeProvider>
+        </ColorContext.Provider>
+      </div>
+    </StyledEngineProvider>
   );
 }
 
