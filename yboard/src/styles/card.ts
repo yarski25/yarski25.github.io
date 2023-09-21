@@ -113,7 +113,13 @@ export const StyledCard = styled(Card, {
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
-  //   CardProps,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  border: "2px solid purple",
+  borderRadius: "1em",
+  //backgroundColor: "#af52bfa1",
+  boxSizing: "border-box",
 }));
 
 export const StyledCardContent = styled(Card, {
@@ -131,5 +137,8 @@ export const StyledCardContent = styled(Card, {
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
-  CardProps,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  //padding: "0.5em",
 }));

@@ -105,6 +105,7 @@ import { forwardRef } from "react";
 
 type CustomComponentProps = {
   color?: "primary" | "secondary";
+  variant?: "outlined";
 };
 
 type CustomComponentClassKey = "root";
@@ -187,6 +188,11 @@ export const theme = createTheme({
     //     // color: "red",
     //     //borderRadius: "16px",
     //     // padding: 16,
+    //   },
+    // },
+    // StyledCard: {
+    //   defaultProps: {
+    //     variant: "outlined",
     //   },
     // },
 

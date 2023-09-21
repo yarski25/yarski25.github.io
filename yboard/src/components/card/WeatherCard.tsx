@@ -21,10 +21,11 @@ import {
   MyCardProps,
   StyledBox,
   StyledCard,
+  StyledCardContent,
 } from "../../styles/card";
 import { ExpandMore } from "../ui/buttons/ExpandMore";
 
-type StyledProps = {
+type WeatherCardProps = {
   index: number;
   day: number;
   hour: number;
@@ -39,7 +40,7 @@ const WeatherCard = ({
   day,
   hour,
   index,
-}: PropsWithChildren<StyledProps>) => {
+}: PropsWithChildren<WeatherCardProps>) => {
   const [expandedId, setExpandedId] = useState(-1);
 
   const handleExpandClick = (id: number) => {
@@ -51,7 +52,7 @@ const WeatherCard = ({
     //<div className="weather-page__output__card">
     <StyledBox>
       <StyledCard variant="outlined">
-        <CardContent sx={CardContentProps}>
+        <StyledCardContent>
           <CardMedia
             component="img"
             width="100"
@@ -118,7 +119,7 @@ const WeatherCard = ({
                 ]
               : weatherData?.current?.air_quality?.["us-epa-index"]}
           </Typography>
-        </CardContent>
+        </StyledCardContent>
         <CardActions>
           <ExpandMore
             expand={expandedId === index}
@@ -130,7 +131,7 @@ const WeatherCard = ({
           </ExpandMore>
         </CardActions>
         <Collapse in={expandedId === index} timeout="auto" unmountOnExit>
-          <CardContent>
+          <StyledCardContent>
             <Typography
               sx={{ mb: 1.5, fontSize: "0.5em" }}
               color="text.secondary"
@@ -145,7 +146,7 @@ const WeatherCard = ({
                   ]
                 : weatherData?.current?.air_quality?.["us-epa-index"]}
             </Typography>
-          </CardContent>
+          </StyledCardContent>
         </Collapse>
       </StyledCard>
     </StyledBox>
