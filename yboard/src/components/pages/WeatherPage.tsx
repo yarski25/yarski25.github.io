@@ -12,14 +12,13 @@ import WeatherService from "../../api/WeatherService";
 import { useFetching } from "../../hooks/useFetching";
 import { Current } from "../../types/Current";
 import { DeepPartial } from "../../types/custom/DeepPartial";
-import MyCard from "../card/MyCard";
 import { Forecast, ForecastDay, Hour, Weather } from "../../types/Forecast";
 import {
   CSSTransition,
   Transition,
   TransitionGroup,
 } from "react-transition-group";
-import StyledCard from "../card/StyledCard";
+import WeatherCard from "../card/WeatherCard";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
@@ -218,7 +217,7 @@ const WeatherPage = () => {
               //   hour={12}
               //   weatherData={weather}
               // />
-              <StyledCard
+              <WeatherCard
                 index={index}
                 key={index}
                 day={index}

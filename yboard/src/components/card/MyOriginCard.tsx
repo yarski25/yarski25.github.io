@@ -14,15 +14,10 @@ import {
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import { Weather } from "../../types/Forecast";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  BoxProps,
-  CardContentProps,
-  CardProps,
-  StyledBox,
-} from "../../styles/card";
+import { BoxProps, CardContentProps, CardProps } from "../../styles/card";
 import { ExpandMore } from "../ui/buttons/ExpandMore";
 
-type StyledProps = {
+type MyCardProps = {
   index: number;
   day: number;
   hour: number;
@@ -32,12 +27,12 @@ type StyledProps = {
 
 type variant = "small" | "normal";
 
-const StyledCard = ({
+const MyOriginCard = ({
   weatherData,
   day,
   hour,
   index,
-}: PropsWithChildren<StyledProps>) => {
+}: PropsWithChildren<MyCardProps>) => {
   const [expandedId, setExpandedId] = useState(-1);
 
   const handleExpandClick = (id: number) => {
@@ -47,7 +42,7 @@ const StyledCard = ({
 
   return (
     //<div className="weather-page__output__card">
-    <StyledBox>
+    <Box sx={BoxProps}>
       <Card variant="outlined" sx={CardProps}>
         <CardContent sx={CardContentProps}>
           <CardMedia
@@ -146,8 +141,9 @@ const StyledCard = ({
           </CardContent>
         </Collapse>
       </Card>
-    </StyledBox>
+    </Box>
+    //</div>
   );
 };
 
-export default StyledCard;
+export default MyOriginCard;

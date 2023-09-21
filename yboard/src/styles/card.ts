@@ -1,5 +1,5 @@
 import { Box, Card, SxProps, styled } from "@mui/material";
-import MyCard from "../components/card/MyCard";
+import MyCard from "../components/card/MyOriginCard";
 
 // Default breakpoints
 // xs, extra-small: 0px
@@ -68,6 +68,7 @@ type StyledBoxProps = {
 
 type StyledCardProps = {
   color?: "primary" | "secondary";
+  variant?: "outlined";
 };
 
 type StyledCardContentProps = {
@@ -108,11 +109,11 @@ export const StyledCard = styled(Card, {
     props.color === "primary" && styles.primary,
     props.color === "secondary" && styles.secondary,
   ],
-})<StyledBoxProps>(({ theme }) => ({
+})<StyledCardProps>(({ theme }) => ({
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
-  CardProps,
+  //   CardProps,
 }));
 
 export const StyledCardContent = styled(Card, {
