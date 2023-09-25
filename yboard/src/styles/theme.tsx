@@ -105,7 +105,8 @@ import { forwardRef } from "react";
 
 type CustomComponentProps = {
   color?: "primary" | "secondary";
-  variant?: "outlined";
+  backgroundColor?: string;
+  //variant?: "outlined";
 };
 
 type CustomComponentClassKey = "root";
@@ -154,7 +155,7 @@ export const theme = createTheme({
       dark: blue[700],
     },
     secondary: {
-      light: purple[200],
+      light: purple[50],
       main: purple[500],
       dark: purple[700],
     },
@@ -195,7 +196,6 @@ export const theme = createTheme({
     //     variant: "outlined",
     //   },
     // },
-
     MuiTextField: {
       defaultProps: {
         sx: {
