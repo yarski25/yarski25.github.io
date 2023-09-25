@@ -68,6 +68,7 @@ type StyledBoxProps = {
 
 type StyledCardProps = {
   color?: "primary" | "secondary";
+  //backgroundColor?: string;
   variant?: "outlined";
 };
 
@@ -111,12 +112,12 @@ export const StyledCard = styled(Card, {
   ],
 })<StyledCardProps>(({ theme }) => ({
   color: theme.palette.primary.main,
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.primary.light,
   padding: theme.spacing(1),
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  border: "2px solid purple",
+  border: "2px solid blue",
   borderRadius: "1em",
   //backgroundColor: "#af52bfa1",
   boxSizing: "border-box",
@@ -135,10 +136,11 @@ export const StyledCardContent = styled(Card, {
   ],
 })<StyledCardContentProps>(({ theme }) => ({
   color: theme.palette.primary.main,
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.primary.light,
   padding: theme.spacing(1),
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  //padding: "0.5em",
+  boxShadow: "none",
+  //backgroundColor: "#af52bfa1",
 }));
