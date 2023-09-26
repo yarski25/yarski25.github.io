@@ -4,7 +4,7 @@ import {
   Theme,
   useThemeProps,
 } from "@mui/material/styles";
-import { amber, blue, deepOrange, grey, purple } from "@mui/material/colors";
+import { blue, deepOrange, grey, purple } from "@mui/material/colors";
 import { StyledComponent } from "@emotion/styled";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import TestComponent from "../components/test/TestComponent";
@@ -246,9 +246,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       ? {
           // palette values for light mode
           primary: {
-            light: theme.palette.secondary.light,
-            main: theme.palette.secondary.main,
-            dark: theme.palette.secondary.dark,
+            main: purple[200],
           },
           divider: purple[200],
           background: {
