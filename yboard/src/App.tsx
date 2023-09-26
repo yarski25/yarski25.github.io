@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import "./App.scss";
 import WeatherPage from "./components/pages/WeatherPage";
-import { theme } from "./styles/theme";
+import { getDesignTokens, theme } from "./styles/theme";
 import { useMemo, useState } from "react";
 import { lightTheme } from "./styles/light";
 import { darkTheme } from "./styles/dark";
@@ -31,10 +31,11 @@ function App() {
     []
   );
 
-  const theme = useMemo(
-    () => createTheme(mode === "light" ? lightTheme : darkTheme),
-    [mode]
-  );
+  // const theme = useMemo(
+  //   () => createTheme(mode === "light" ? lightTheme : darkTheme),
+  //   [mode]
+  // );
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <StyledEngineProvider injectFirst>

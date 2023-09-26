@@ -90,13 +90,13 @@ export const StyledBox = styled(Box, {
 })<StyledBoxProps>(({ theme }) => ({
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(1),
+  //padding: theme.spacing(1),
   minWidth: "1dwv",
   margin: "2dvw",
   marginTop: "2rem",
   width: "100%",
-  boxShadow: "10",
   borderRadius: "1em",
+  boxShadow: theme.shadows[10],
 }));
 
 export const StyledCard = styled(Card, {
@@ -112,8 +112,8 @@ export const StyledCard = styled(Card, {
   ],
 })<StyledCardProps>(({ theme }) => ({
   color: theme.palette.primary.main,
-  backgroundColor: theme.palette.primary.light,
-  padding: theme.spacing(1),
+  backgroundColor: theme.palette.primary.main,
+  //padding: theme.spacing(1),
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -136,8 +136,7 @@ export const StyledCardContent = styled(Card, {
   ],
 })<StyledCardContentProps>(({ theme }) => ({
   color: theme.palette.primary.main,
-  backgroundColor: theme.palette.primary.light,
-  padding: theme.spacing(1),
+  backgroundColor: theme.palette.primary.main,
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

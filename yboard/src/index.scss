@@ -1,5 +1,5 @@
-$bgcolor: #ffffff;
-$textcolor: #000000;
+//$bgcolor: #ffffff;
+//$textcolor: #000000;
 $fontsize: 16px;
 
 body {
@@ -9,8 +9,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $bgcolor;
-  color: $textcolor;
+  //background-color: $bgcolor;
+  //color: $textcolor;
   font-size: $fontsize;
 }
 

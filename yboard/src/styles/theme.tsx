@@ -4,11 +4,12 @@ import {
   Theme,
   useThemeProps,
 } from "@mui/material/styles";
-import { blue, purple } from "@mui/material/colors";
+import { amber, blue, deepOrange, grey, purple } from "@mui/material/colors";
 import { StyledComponent } from "@emotion/styled";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import TestComponent from "../components/test/TestComponent";
 import { forwardRef } from "react";
+import { PaletteMode } from "@mui/material";
 
 // colors
 // most expensive
@@ -160,7 +161,9 @@ export const theme = createTheme({
       dark: purple[700],
     },
     background: {
-      paper: "#fff",
+      //paper: "#fff",
+      paper: blue[200],
+      default: blue[200],
     },
     text: {
       primary: "#173A5E",
@@ -233,5 +236,42 @@ export const theme = createTheme({
         },
       },
     },
+  },
+});
+
+export const getDesignTokens = (mode: PaletteMode) => ({
+  palette: {
+    mode,
+    ...(mode === "light"
+      ? {
+          // palette values for light mode
+          primary: {
+            light: theme.palette.secondary.light,
+            main: theme.palette.secondary.main,
+            dark: theme.palette.secondary.dark,
+          },
+          divider: purple[200],
+          background: {
+            default: purple[50],
+            paper: purple[50],
+          },
+          text: {
+            primary: grey[900],
+            secondary: grey[800],
+          },
+        }
+      : {
+          // palette values for dark mode
+          primary: deepOrange,
+          divider: deepOrange[700],
+          background: {
+            default: deepOrange[900],
+            paper: deepOrange[900],
+          },
+          text: {
+            primary: "#fff",
+            secondary: grey[500],
+          },
+        }),
   },
 });
