@@ -30,12 +30,17 @@ const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
   const [city, setCity] = useState("");
 
+  const coordsCondition = position.lat && position.lon;
+  const cityCondition = city !== "";
+
   const [weather, setWeather] = useState<DeepPartial<Weather>>();
 
   const [forecastWeather, setForecastWeather] =
     useState<DeepPartial<ForecastDay[]>>();
 
   //let forecastWeather: DeepPartial<Forecast> = {};
+  //const cityTyped: boolean = false;
+  //const locationChanged: boolean = false;
 
   const [currentWeather, setCurrentWeather] = useState<DeepPartial<Current>>({
     location: {
@@ -60,16 +65,27 @@ const WeatherPage = () => {
   // const [isPending, startTransition] = useTransition() // (state, timeout)
 
   const [fetchData, isDataLoading, dataError] = useFetching(async () => {
-    if (position.lat && position.lon) {
-      const response = await WeatherService.getForecast(
-        {
-          lat: position.lat,
-          lon: position.lon,
-        },
-        "3"
-      );
+    const coordsCondition = position.lat && position.lon;
+    const cityCondition = city !== "";
 
-      setWeather(response.data);
+    if (!cityCondition) {
+      if (coordsCondition) {
+        const response = await WeatherService.getForecast(
+          {
+            lat: position.lat,
+            lon: position.lon,
+          },
+          "3"
+        );
+
+        setWeather(response.data);
+      }
+    } else {
+      if (position.lat && position.lon) {
+        const response = await WeatherService.getForecastByCity(city, "3");
+
+        setWeather(response.data);
+      }
     }
 
     //A -> get current location
@@ -78,7 +94,9 @@ const WeatherPage = () => {
     // if city is empty && coords empty => nothing
     // if city is empty && coords full => fetch by coords
     // if city is full && coords empty => fetch by city
-    // if city is full && coords full => fetch by last option
+    // if city is full && coords full => fetch by last action
+
+    // add flag to detect user action
 
     //const response = await WeatherService.getForecastByCity(city, "3");
 
@@ -137,8 +155,8 @@ const WeatherPage = () => {
     // if (position.lat && position.lon) {
     //   fetchData();
     // }
-    fetchData();
-  }, [position]);
+    if (coordsCondition || cityCondition) fetchData();
+  }, [position, city]);
 
   const handleCity = (event: ChangeEvent<HTMLInputElement>) => {
     const letters = /^[A-Za-z]+$/;

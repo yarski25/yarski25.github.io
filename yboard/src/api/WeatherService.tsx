@@ -63,6 +63,7 @@ export default class WeatherService {
     queries.set("days", "&days=" + days);
     const response = await axios.get<Weather>(
       API_URL +
+        endpoints.get("forecast") +
         `?key=` +
         API_KEY +
         `&q=` +
