@@ -59,14 +59,22 @@ export default class WeatherService {
     return response;
   }
 
-  static async getByCityName(city: string) {
-    const response = await axios.get<unknown>(
-      API_URL + `?key=` + API_KEY + `&q=` + city
+  static async getForecastByCity(city: string, days: string) {
+    queries.set("days", "&days=" + days);
+    const response = await axios.get<Weather>(
+      API_URL +
+        `?key=` +
+        API_KEY +
+        `&q=` +
+        city +
+        queries.get("airQuality") +
+        queries.get("days")
     );
+    //api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
 
     //console.log(response.data);
 
-    return response.data;
+    return response;
   }
 
   //   static async getByLatLon(lat: string, lon: string) {

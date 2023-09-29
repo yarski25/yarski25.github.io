@@ -1,4 +1,10 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Button from "@mui/material/Button";
 import {
   CircularProgress,
@@ -22,6 +28,7 @@ import WeatherCard from "../card/WeatherCard";
 
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
+  const [city, setCity] = useState("");
 
   const [weather, setWeather] = useState<DeepPartial<Weather>>();
 
@@ -53,15 +60,28 @@ const WeatherPage = () => {
   // const [isPending, startTransition] = useTransition() // (state, timeout)
 
   const [fetchData, isDataLoading, dataError] = useFetching(async () => {
-    const response = await WeatherService.getForecast(
-      {
-        lat: position.lat,
-        lon: position.lon,
-      },
-      "7"
-    );
+    if (position.lat && position.lon) {
+      const response = await WeatherService.getForecast(
+        {
+          lat: position.lat,
+          lon: position.lon,
+        },
+        "3"
+      );
 
-    setWeather(response.data);
+      setWeather(response.data);
+    }
+
+    //A -> get current location
+    //B -> type city name
+    //after button click
+    // if city is empty && coords empty => nothing
+    // if city is empty && coords full => fetch by coords
+    // if city is full && coords empty => fetch by city
+    // if city is full && coords full => fetch by last option
+
+    //const response = await WeatherService.getForecastByCity(city, "3");
+
     //setForecastWeather(response.data?.forecastday);
 
     // response.data.forecastday.map(
@@ -114,12 +134,28 @@ const WeatherPage = () => {
   // );
 
   useEffect(() => {
-    if (position.lat && position.lon) {
-      fetchData();
-    }
+    // if (position.lat && position.lon) {
+    //   fetchData();
+    // }
+    fetchData();
   }, [position]);
 
+  const handleCity = (event: ChangeEvent<HTMLInputElement>) => {
+    const letters = /^[A-Za-z]+$/;
+    if (
+      event.target.value.length > 0 &&
+      event.target.value.match(letters) === null
+    ) {
+      console.log("Wrong input! Only letters are allowed...");
+      return;
+    }
+    setCity(event.target.value);
+    console.log(city);
+  };
+
   const handleOnClick = () => {
+    if (city !== "") {
+    }
     if ("geolocation" in navigator) {
       console.log("Available");
       navigator.geolocation.getCurrentPosition(
@@ -133,6 +169,8 @@ const WeatherPage = () => {
           console.error("Error Code = " + error.code + " - " + error.message);
         }
       );
+    } else if (city) {
+      setCity("");
     } else {
       console.log("Not Available");
     }
@@ -165,6 +203,12 @@ const WeatherPage = () => {
           label="city"
           variant="outlined"
           color="secondary"
+          value={city}
+          onChange={handleCity}
+          // onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          //   setCity(e.target.value);
+          //   console.log(city);
+          // }}
         />
         <Button onClick={handleOnClick} variant="contained" color="secondary">
           Get location

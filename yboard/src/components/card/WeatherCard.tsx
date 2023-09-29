@@ -69,7 +69,11 @@ const WeatherCard = ({
                 : weatherData?.current?.condition?.text
             }
           />
-          <Typography variant="h5" component="div" sx={{ fontSize: "1.2em" }}>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ fontSize: "1.2em", color: "black" }}
+          >
             {day > 0
               ? weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c
               : weatherData?.current?.temp_c}
