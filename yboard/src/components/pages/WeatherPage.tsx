@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useTransition,
 } from "react";
 import Button from "@mui/material/Button";
 import {
@@ -29,6 +30,7 @@ import WeatherCard from "../card/WeatherCard";
 const WeatherPage = () => {
   const [position, setPosition] = useState<Coords>({ lat: "", lon: "" });
   const [city, setCity] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   const coordsCondition = position.lat && position.lon;
   const cityCondition = city !== "";
@@ -81,11 +83,11 @@ const WeatherPage = () => {
         setWeather(response.data);
       }
     } else {
-      if (position.lat && position.lon) {
-        const response = await WeatherService.getForecastByCity(city, "3");
+      // if (position.lat && position.lon) {
+      const response = await WeatherService.getForecastByCity(city, "3");
 
-        setWeather(response.data);
-      }
+      setWeather(response.data);
+      // }
     }
 
     //A -> get current location
@@ -155,10 +157,17 @@ const WeatherPage = () => {
     // if (position.lat && position.lon) {
     //   fetchData();
     // }
-    if (coordsCondition || cityCondition) fetchData();
-  }, [position, city]);
+    // const timeoOutId = setTimeout(()=>fetchData(), 500);
+    const timeOutId = setTimeout(() => fetchData(), 1000);
+    setIsTyping(false);
+    // if (coordsCondition || cityCondition)
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [position, isTyping]);
 
   const handleCity = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsTyping(true);
     const letters = /^[A-Za-z]+$/;
     if (
       event.target.value.length > 0 &&
@@ -168,12 +177,12 @@ const WeatherPage = () => {
       return;
     }
     setCity(event.target.value);
-    console.log(city);
+    //console.log(city);
   };
 
   const handleOnClick = () => {
-    if (city !== "") {
-    }
+    // if (city !== "") {
+    // }
     if ("geolocation" in navigator) {
       console.log("Available");
       navigator.geolocation.getCurrentPosition(
@@ -187,8 +196,8 @@ const WeatherPage = () => {
           console.error("Error Code = " + error.code + " - " + error.message);
         }
       );
-    } else if (city) {
-      setCity("");
+      // } else if (city) {
+      //   setCity("");
     } else {
       console.log("Not Available");
     }
