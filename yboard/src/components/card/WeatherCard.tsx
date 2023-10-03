@@ -24,6 +24,7 @@ import {
   StyledCardContent,
 } from "../../styles/card";
 import { ExpandMore } from "../ui/buttons/ExpandMore";
+import humidity from "../../assets/humidity.webp";
 
 type WeatherCardProps = {
   index: number;
@@ -72,11 +73,14 @@ const WeatherCard = ({
           <Typography
             variant="h5"
             component="div"
-            sx={{ fontSize: "1.2em", color: "black" }}
+            sx={{ mb: 1.5, fontSize: "1.5em" }}
+            color="text.secondary"
           >
             {day > 0
-              ? weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c
-              : weatherData?.current?.temp_c}
+              ? Number(weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c)
+                  .toFixed(0)
+                  .toString()
+              : Number(weatherData?.current?.temp_c).toFixed(0).toString()}
             ℃
           </Typography>
           <Typography
@@ -84,30 +88,30 @@ const WeatherCard = ({
             color="text.secondary"
           >
             {day > 0
-              ? weatherData?.forecast?.forecastday?.[day].day?.maxwind_kph
-              : weatherData?.current?.wind_kph}{" "}
+              ? Number(
+                  weatherData?.forecast?.forecastday?.[day].day?.maxwind_kph
+                )
+                  .toFixed(0)
+                  .toString()
+              : Number(weatherData?.current?.wind_kph)
+                  .toFixed(0)
+                  .toString()}{" "}
             km/h{" "}
             {day > 0
               ? weatherData?.forecast?.forecastday?.[day].hour?.[hour].wind_dir
               : weatherData?.current?.wind_dir}
           </Typography>
+
+          {/* <img src={humidity} width={16} height={16} alt="humidity" /> */}
           <Typography
             sx={{ mb: 1.5, fontSize: "0.5em" }}
             color="text.secondary"
           >
+            humidity:{" "}
             {day > 0
-              ? (
-                  ((weatherData?.forecast?.forecastday?.[day].day
-                    ?.maxwind_kph as number) *
-                    1000) /
-                  3600
-                )
-                  .toFixed(0)
-                  .toString()
-              : (((weatherData?.current?.wind_kph as number) * 1000) / 3600)
-                  .toFixed(0)
-                  .toString()}{" "}
-            m/s
+              ? weatherData?.forecast?.forecastday?.[day].day?.avghumidity
+              : weatherData?.current?.humidity}{" "}
+            %
           </Typography>
           <Typography
             sx={{ mb: 1.5, fontSize: "0.5em" }}
@@ -149,6 +153,24 @@ const WeatherCard = ({
                     "us-epa-index"
                   ]
                 : weatherData?.current?.air_quality?.["us-epa-index"]}
+            </Typography>
+            <Typography
+              sx={{ mb: 1.5, fontSize: "0.5em" }}
+              color="text.secondary"
+            >
+              {day > 0
+                ? (
+                    ((weatherData?.forecast?.forecastday?.[day].day
+                      ?.maxwind_kph as number) *
+                      1000) /
+                    3600
+                  )
+                    .toFixed(0)
+                    .toString()
+                : (((weatherData?.current?.wind_kph as number) * 1000) / 3600)
+                    .toFixed(0)
+                    .toString()}{" "}
+              m/s
             </Typography>
           </StyledCardContent>
         </Collapse>
