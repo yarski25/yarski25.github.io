@@ -60,6 +60,28 @@
   }
 }
 
+.weather-card-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    padding-right: 1em;
+    //justify-content: center;
+    // //border: 2px solid red;
+  }
+
+  &__text {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+  }
+}
+
 .test {
   display: flex;
   flex-direction: row;
