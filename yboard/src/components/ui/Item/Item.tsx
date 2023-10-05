@@ -5,6 +5,7 @@ type ItemProps = {
   src?: string; // icon source
   alt?: string; // icon alt text
   iconSize?: string; // icon size
+  fontSize?: string; // font size
   style?: React.CSSProperties;
 };
 
@@ -26,7 +27,7 @@ const Item = (props: PropsWithChildren<ItemProps>) => {
       <Typography
         sx={{
           mb: 0,
-          fontSize: "1em",
+          fontSize: props.fontSize || "1em",
           textAlign: "center",
           alignItems: "center",
         }}
