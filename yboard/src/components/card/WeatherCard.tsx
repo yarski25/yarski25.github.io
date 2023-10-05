@@ -30,6 +30,8 @@ import wind from "../../assets/wind.webp";
 import aqi from "../../assets/air-quality.webp";
 import temp from "../../assets/temp.webp";
 import Item from "../ui/Item/Item";
+import CardData from "./data/CardData";
+import CardDetails from "./details/CardDetails";
 
 type WeatherCardProps = {
   index: number;
@@ -55,65 +57,10 @@ const WeatherCard = ({
   };
 
   return (
-    //<div className="weather-page__output__card">
     <StyledBox>
       <StyledCard variant="outlined">
         <StyledCardContent>
-          <CardMedia
-            component="img"
-            width="100"
-            //height="100"
-
-            image={
-              day > 0
-                ? weatherData?.forecast?.forecastday?.[day].day?.condition?.icon
-                : weatherData?.current?.condition?.icon
-            }
-            alt={
-              day > 0
-                ? weatherData?.forecast?.forecastday?.[day].day?.condition?.text
-                : weatherData?.current?.condition?.text
-            }
-          />
-          <Item src={temp} alt="temperature" iconSize="32" fontSize="2em">
-            {day > 0
-              ? Number(weatherData?.forecast?.forecastday?.[day].day?.maxtemp_c)
-                  .toFixed(0)
-                  .toString()
-              : Number(weatherData?.current?.temp_c).toFixed(0).toString()}
-            ℃
-          </Item>
-          <Item src={wind} alt="wind">
-            {day > 0
-              ? Number(
-                  weatherData?.forecast?.forecastday?.[day].day?.maxwind_kph
-                )
-                  .toFixed(0)
-                  .toString()
-              : Number(weatherData?.current?.wind_kph)
-                  .toFixed(0)
-                  .toString()}{" "}
-            km/h{" "}
-            {day > 0
-              ? weatherData?.forecast?.forecastday?.[day].hour?.[hour].wind_dir
-              : weatherData?.current?.wind_dir}
-          </Item>
-          <Item src={humidity} alt="humidity">
-            {day > 0
-              ? weatherData?.forecast?.forecastday?.[day].day?.avghumidity
-              : weatherData?.current?.humidity}{" "}
-            %
-          </Item>
-          <Item src={aqi} alt="air quality">
-            {day > 0 &&
-            weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
-              "us-epa-index"
-            ]
-              ? weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
-                  "us-epa-index"
-                ]
-              : weatherData?.current?.air_quality?.["us-epa-index"]}
-          </Item>
+          <CardData data={weatherData} day={day} hour={hour} />
         </StyledCardContent>
         <CardActions>
           <ExpandMore
@@ -127,38 +74,7 @@ const WeatherCard = ({
         </CardActions>
         <Collapse in={expandedId === index} timeout="auto" unmountOnExit>
           <StyledCardContent>
-            <Typography
-              sx={{ mb: 1.5, fontSize: "0.5em" }}
-              color="text.secondary"
-            >
-              air quality:
-              {day > 0 &&
-              weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
-                "us-epa-index"
-              ]
-                ? weatherData?.forecast?.forecastday?.[day].day?.air_quality?.[
-                    "us-epa-index"
-                  ]
-                : weatherData?.current?.air_quality?.["us-epa-index"]}
-            </Typography>
-            <Typography
-              sx={{ mb: 1.5, fontSize: "0.5em" }}
-              color="text.secondary"
-            >
-              {day > 0
-                ? (
-                    ((weatherData?.forecast?.forecastday?.[day].day
-                      ?.maxwind_kph as number) *
-                      1000) /
-                    3600
-                  )
-                    .toFixed(0)
-                    .toString()
-                : (((weatherData?.current?.wind_kph as number) * 1000) / 3600)
-                    .toFixed(0)
-                    .toString()}{" "}
-              m/s
-            </Typography>
+            <CardDetails data={weatherData} day={day} hour={hour} />
           </StyledCardContent>
         </Collapse>
       </StyledCard>
