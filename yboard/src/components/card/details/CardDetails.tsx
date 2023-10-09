@@ -1,12 +1,10 @@
 import { PropsWithChildren } from "react";
-import humidity from "../../../assets/humidity.webp";
 import wind from "../../../assets/wind.webp";
 import aqi from "../../../assets/air-quality.webp";
-import temp from "../../../assets/temp.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
 import { DeepPartial } from "../../../types/custom/DeepPartial";
-import { CardMedia, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 type CardDetailsProps = {
   day: number;
@@ -22,7 +20,7 @@ const CardDetails = ({
 }: PropsWithChildren<CardDetailsProps>) => {
   return (
     <>
-      <Stack>
+      <Stack padding="0.5em 1.5em">
         <Item src={wind} alt="wind">
           {day > 0
             ? (

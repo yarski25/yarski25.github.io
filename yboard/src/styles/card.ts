@@ -57,7 +57,7 @@ export const CardContentProps: SxProps = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  padding: "0.5em",
+  padding: "0.0em",
 };
 
 type StyledBoxClassKey = "root";

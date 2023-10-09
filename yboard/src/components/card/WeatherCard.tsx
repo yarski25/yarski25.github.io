@@ -1,35 +1,10 @@
 import { PropsWithChildren, useState } from "react";
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Collapse,
-  IconButton,
-  IconButtonProps,
-  Stack,
-  Typography,
-  styled,
-} from "@mui/material";
+import { CardActions, Collapse } from "@mui/material";
 import { DeepPartial } from "../../types/custom/DeepPartial";
 import { Weather } from "../../types/Forecast";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  BoxProps,
-  CardContentProps,
-  CardProps,
-  MyCardProps,
-  StyledBox,
-  StyledCard,
-  StyledCardContent,
-} from "../../styles/card";
+import { StyledBox, StyledCard, StyledCardContent } from "../../styles/card";
 import { ExpandMore } from "../ui/buttons/ExpandMore";
-import humidity from "../../assets/humidity.webp";
-import wind from "../../assets/wind.webp";
-import aqi from "../../assets/air-quality.webp";
-import temp from "../../assets/temp.webp";
-import Item from "../ui/Item/Item";
 import CardData from "./data/CardData";
 import CardDetails from "./details/CardDetails";
 
@@ -40,8 +15,6 @@ type WeatherCardProps = {
   weatherData?: DeepPartial<Weather>;
   style?: React.CSSProperties;
 };
-
-type variant = "small" | "normal";
 
 const WeatherCard = ({
   weatherData,
@@ -62,7 +35,7 @@ const WeatherCard = ({
         <StyledCardContent>
           <CardData data={weatherData} day={day} hour={hour} />
         </StyledCardContent>
-        <CardActions>
+        <CardActions sx={{ padding: "0.0em" }}>
           <ExpandMore
             expand={expandedId === index}
             onClick={() => handleExpandClick(index)}
