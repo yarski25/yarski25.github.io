@@ -1,6 +1,11 @@
 import { PropsWithChildren } from "react";
 import wind from "../../../assets/wind.webp";
-import aqi from "../../../assets/air-quality.webp";
+import pm10 from "../../../assets/PM10.webp";
+import pm25 from "../../../assets/PM25.webp";
+import co from "../../../assets/CO.webp";
+import o3 from "../../../assets/O3.webp";
+import no2 from "../../../assets/NO2.webp";
+import so2 from "../../../assets/SO2.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
 import { DeepPartial } from "../../../types/custom/DeepPartial";
@@ -39,13 +44,61 @@ const CardDetails = ({
             ? data?.forecast?.forecastday?.[day].hour?.[hour].wind_dir
             : data?.current?.wind_dir}
         </Item>
-        <Item src={aqi} alt="air quality">
-          {day > 0 &&
-          data?.forecast?.forecastday?.[day].day?.air_quality?.["us-epa-index"]
-            ? data?.forecast?.forecastday?.[day].day?.air_quality?.[
-                "us-epa-index"
-              ]
-            : data?.current?.air_quality?.["us-epa-index"]}
+        <Item src={pm25} alt="2.5 micron particles" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.pm2_5
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.pm2_5)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.pm2_5)
+                .toFixed(0)
+                .toString()}{" "}
+          µg/m³
+        </Item>
+        <Item src={pm10} alt="10 micron particles" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.pm10
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.pm10)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.pm10)
+                .toFixed(0)
+                .toString()}{" "}
+          µg/m³
+        </Item>
+        <Item src={co} alt="carbon oxide" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.co
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.co)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.co).toFixed(0).toString()}{" "}
+          µg/m³
+        </Item>
+        <Item src={o3} alt="ozone" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.o3
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.o3)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.o3).toFixed(0).toString()}{" "}
+          µg/m³
+        </Item>
+        <Item src={no2} alt="nitrogen dioxide" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.no2
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.no2)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.no2)
+                .toFixed(0)
+                .toString()}{" "}
+          µg/m³
+        </Item>
+        <Item src={so2} alt="serum dioxide" iconSize="24">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.air_quality?.so2
+            ? Number(data?.forecast?.forecastday?.[day].day?.air_quality?.so2)
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.air_quality?.so2)
+                .toFixed(0)
+                .toString()}{" "}
+          µg/m³
         </Item>
       </Stack>
     </>
