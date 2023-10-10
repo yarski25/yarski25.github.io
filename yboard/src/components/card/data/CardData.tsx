@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import humidity from "../../../assets/humidity.webp";
 import wind from "../../../assets/wind.webp";
 import aqi from "../../../assets/air-quality.webp";
+import moonPhase from "../../../assets/moon-phase.webp";
 import temp from "../../../assets/temp.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
@@ -77,6 +78,11 @@ const CardData = ({ data, day, hour }: PropsWithChildren<CardDataProps>) => {
                   "us-epa-index"
                 ]
               : data?.current?.air_quality?.["us-epa-index"]}
+          </Item>
+          <Item src={moonPhase} alt="moon phase" fontSize="0.9em">
+            {day > 0 && data?.forecast?.forecastday?.[day].astro?.moon_phase
+              ? data?.forecast?.forecastday?.[day].astro?.moon_phase
+              : data?.forecast?.forecastday?.[day].astro?.moon_phase}
           </Item>
         </Stack>
       </Stack>
