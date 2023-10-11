@@ -6,6 +6,7 @@ import co from "../../../assets/CO.webp";
 import o3 from "../../../assets/O3.webp";
 import no2 from "../../../assets/NO2.webp";
 import so2 from "../../../assets/SO2.webp";
+import pressure from "../../../assets/pressure.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
 import { DeepPartial } from "../../../types/custom/DeepPartial";
@@ -43,6 +44,17 @@ const CardDetails = ({
           {day > 0
             ? data?.forecast?.forecastday?.[day].hour?.[hour].wind_dir
             : data?.current?.wind_dir}
+        </Item>
+        <Item src={pressure} alt="pressure" fontSize="0.9em">
+          {day > 0 &&
+          data?.forecast?.forecastday?.[day].hour?.[hour].pressure_mb
+            ? Number(
+                data?.forecast?.forecastday?.[day].hour?.[hour].pressure_mb
+              )
+                .toFixed(0)
+                .toString()
+            : Number(data?.current?.pressure_mb).toFixed(0).toString()}{" "}
+          hPa
         </Item>
         <Item
           src={pm25}
