@@ -20,6 +20,10 @@ type CardDetailsProps = {
   style?: React.CSSProperties;
 };
 
+const hPaTommHg = (hPa: string) => {
+  return (3 * Number(hPa)) / 4;
+};
+
 const CardDetails = ({
   data,
   day,
@@ -49,13 +53,16 @@ const CardDetails = ({
         <Item src={pressure} alt="pressure" fontSize="0.9em">
           {day > 0 &&
           data?.forecast?.forecastday?.[day].hour?.[hour].pressure_mb
-            ? Number(
-                data?.forecast?.forecastday?.[day].hour?.[hour].pressure_mb
+            ? hPaTommHg(
+                data?.forecast?.forecastday?.[day].hour?.[hour]
+                  .pressure_mb as string
               )
                 .toFixed(0)
                 .toString()
-            : Number(data?.current?.pressure_mb).toFixed(0).toString()}{" "}
-          hPa
+            : hPaTommHg(data?.current?.pressure_mb as string)
+                .toFixed(0)
+                .toString()}{" "}
+          mmHg
         </Item>
         <Item src={uv} alt="ultraviolet radiation" fontSize="0.9em">
           {day > 0 && data?.forecast?.forecastday?.[day].day?.uv
