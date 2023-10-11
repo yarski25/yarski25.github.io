@@ -39,7 +39,7 @@ type Astro = {
   moonrise: string;
   moonset: string;
   moon_phase: string;
-  moon_ilumination: string;
+  moon_illumination: string;
   is_moon_up: number | string;
   is_sun_up: number | string;
 };

@@ -3,11 +3,15 @@ import humidity from "../../../assets/humidity.webp";
 import wind from "../../../assets/wind.webp";
 import aqi from "../../../assets/air-quality.webp";
 import moonPhase from "../../../assets/moon-phase.webp";
+import moon1 from "../../../assets/moon1.webp";
+import moon2 from "../../../assets/moon2.webp";
+import moon3 from "../../../assets/moon3.webp";
+import moon4 from "../../../assets/moon4.webp";
 import temp from "../../../assets/temp.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
 import { DeepPartial } from "../../../types/custom/DeepPartial";
-import { CardMedia, Stack } from "@mui/material";
+import { CardMedia, Stack, Typography } from "@mui/material";
 
 type CardDataProps = {
   day: number;
@@ -16,9 +20,49 @@ type CardDataProps = {
   style?: React.CSSProperties;
 };
 
+const dateTransforme = (yyyymmdd: string) => {
+  const date = new Date(yyyymmdd);
+  const day = date.getDate().toString();
+  const month = date.toLocaleString("default", { month: "long" });
+  return `${day} ${month}`;
+};
+
+const convertMoonPhase = (moonPhase: string) => {
+  let moonIcon = "moon";
+  switch (moonPhase) {
+    case "New Moon": {
+      moonIcon += "1";
+      return moon1;
+    }
+    case "Waxing Crescent":
+    case "First Quarter":
+    case "Waxing Gibbous": {
+      moonIcon += "2";
+      return moon2;
+    }
+    case "Full Moon": {
+      moonIcon += "3";
+      return moon3;
+    }
+    case "Waning Gibbous":
+    case "Last Quarter":
+    case "Waning Crescent": {
+      moonIcon += "4";
+      return moon4;
+    }
+    default: {
+      moonIcon += "1";
+      return moon1;
+    }
+  }
+};
+
 const CardData = ({ data, day, hour }: PropsWithChildren<CardDataProps>) => {
   return (
     <Stack direction="column" justifyContent="center">
+      <Typography color="black" paddingTop="0.5em">
+        {dateTransforme(data?.forecast?.forecastday?.[day].date as string)}
+      </Typography>
       <CardMedia
         component="img"
         width="100"
@@ -79,10 +123,17 @@ const CardData = ({ data, day, hour }: PropsWithChildren<CardDataProps>) => {
                 ]
               : data?.current?.air_quality?.["us-epa-index"]}
           </Item>
-          <Item src={moonPhase} alt="moon phase" fontSize="0.9em">
-            {day > 0 && data?.forecast?.forecastday?.[day].astro?.moon_phase
-              ? data?.forecast?.forecastday?.[day].astro?.moon_phase
-              : data?.forecast?.forecastday?.[day].astro?.moon_phase}
+          <Item
+            src={convertMoonPhase(
+              data?.forecast?.forecastday?.[day].astro?.moon_phase as string
+            )}
+            alt="moon phase"
+          >
+            {day > 0 &&
+            data?.forecast?.forecastday?.[day].astro?.moon_illumination
+              ? data?.forecast?.forecastday?.[day].astro?.moon_illumination
+              : data?.forecast?.forecastday?.[day].astro?.moon_illumination}
+            %
           </Item>
         </Stack>
       </Stack>
