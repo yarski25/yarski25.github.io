@@ -7,6 +7,7 @@ import o3 from "../../../assets/O3.webp";
 import no2 from "../../../assets/NO2.webp";
 import so2 from "../../../assets/SO2.webp";
 import pressure from "../../../assets/pressure.webp";
+import uv from "../../../assets/uv.webp";
 import Item from "../../ui/Item/Item";
 import { Weather } from "../../../types/Forecast";
 import { DeepPartial } from "../../../types/custom/DeepPartial";
@@ -55,6 +56,11 @@ const CardDetails = ({
                 .toString()
             : Number(data?.current?.pressure_mb).toFixed(0).toString()}{" "}
           hPa
+        </Item>
+        <Item src={uv} alt="ultraviolet radiation" fontSize="0.9em">
+          {day > 0 && data?.forecast?.forecastday?.[day].day?.uv
+            ? data?.forecast?.forecastday?.[day].day?.uv
+            : data?.current?.uv}{" "}
         </Item>
         <Item
           src={pm25}
