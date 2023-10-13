@@ -17,7 +17,26 @@
   &__input {
     display: flex;
     justify-content: center;
+    padding: 0 1em;
     //border: 2px solid red;
+
+    &__textbox {
+      display: inherit;
+      //flex: 2 1 auto;
+      flex: 70%;
+      justify-content: right;
+    }
+
+    &__button {
+      display: inherit;
+      //flex: 1 1 auto;
+      flex: 30%;
+      //justify-content: center;
+      //text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   &__output {
@@ -25,6 +44,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
+    padding: 0 0.5em;
     //border: 2px solid green;
 
     &__location {

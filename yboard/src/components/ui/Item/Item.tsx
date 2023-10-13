@@ -38,6 +38,9 @@ const Item = (props: PropsWithChildren<ItemProps>) => {
             fontSize: props.fontSize || "1em",
             textAlign: "center",
             alignItems: "center",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
           color="text.secondary"
         >

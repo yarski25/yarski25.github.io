@@ -24,6 +24,21 @@ const hPaTommHg = (hPa: string) => {
   return (3 * Number(hPa)) / 4;
 };
 
+const evaluatePM25 = (value: number) => {
+  // evaluates concentration per 24 hours
+  const level1 = 12,
+    level2 = 35.4,
+    level3 = 55.4,
+    level4 = 150.4,
+    level5 = 250.4,
+    level6 = 350.4,
+    level7 = 500.4;
+
+  if (value <= level1) return "good";
+  else if (value > level1 && value <= level3) return "moderate";
+  else if (value > level3) return "bad";
+};
+
 const CardDetails = ({
   data,
   day,

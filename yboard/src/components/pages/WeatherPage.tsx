@@ -168,7 +168,7 @@ const WeatherPage = () => {
 
   const handleCity = (event: ChangeEvent<HTMLInputElement>) => {
     setIsTyping(true);
-    const letters = /^[A-Za-z]+$/;
+    const letters = /^[A-Za-z ]+$/;
     if (
       event.target.value.length > 0 &&
       event.target.value.match(letters) === null
@@ -225,21 +225,31 @@ const WeatherPage = () => {
   return (
     <div className="weather-page">
       <div className="weather-page__input">
-        <TextField
-          id="outlined-basic"
-          label="city"
-          variant="outlined"
-          color="secondary"
-          value={city}
-          onChange={handleCity}
-          // onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          //   setCity(e.target.value);
-          //   console.log(city);
-          // }}
-        />
-        <Button onClick={handleOnClick} variant="contained" color="secondary">
-          Get location
-        </Button>
+        <div className="weather-page__input__textbox">
+          <TextField
+            id="outlined-basic"
+            label="city"
+            variant="outlined"
+            color="secondary"
+            value={city}
+            onChange={handleCity}
+            fullWidth
+            // onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            //   setCity(e.target.value);
+            //   console.log(city);
+            // }}
+          />
+        </div>
+        <div className="weather-page__input__button">
+          <Button
+            onClick={handleOnClick}
+            variant="contained"
+            color="secondary"
+            fullWidth
+          >
+            Get location
+          </Button>
+        </div>
       </div>
       <div className="weather-page__output">
         {isDataLoading && (
