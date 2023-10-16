@@ -8,32 +8,6 @@ import MyCard from "../components/card/MyOriginCard";
 // lg, large: 1200px
 // xl, extra-large: 1536px
 
-export const MyCardProps: SxProps = {
-  BoxProps: {
-    minWidth: "1dvw",
-    margin: "2dvw",
-    marginTop: "2rem",
-    width: "100%",
-    boxShadow: 10,
-    borderRadius: "1em",
-  },
-  CardProps: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    border: "2px solid purple",
-    borderRadius: "1em",
-    backgroundColor: "#af52bfa1",
-    boxSizing: "box-border",
-  },
-  CardContentProps: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: "0.5em",
-  },
-};
-
 export const BoxProps: SxProps = {
   minWidth: "1dvw",
   margin: "2dvw",
