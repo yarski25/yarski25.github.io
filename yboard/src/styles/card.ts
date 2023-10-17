@@ -115,5 +115,4 @@ export const StyledCardContent = styled(Card, {
   flexDirection: "column",
   justifyContent: "center",
   boxShadow: "none",
-  //backgroundColor: "#af52bfa1",
 }));
