@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.633ecd7c.css",
-    "main.js": "/static/js/main.7804f51c.js",
+    "main.js": "/static/js/main.2e89baf6.js",
     "static/media/pressure.webp": "/static/media/pressure.d8753e5c472c25837e32.webp",
     "static/media/air-quality.webp": "/static/media/air-quality.b0807454b40b93318f3d.webp",
     "static/media/humidity.webp": "/static/media/humidity.5a694a4e53b60adea9b9.webp",
@@ -20,10 +20,10 @@
     "static/media/O3.webp": "/static/media/O3.858425e5763fe5e23bcf.webp",
     "index.html": "/index.html",
     "main.633ecd7c.css.map": "/static/css/main.633ecd7c.css.map",
-    "main.7804f51c.js.map": "/static/js/main.7804f51c.js.map"
+    "main.2e89baf6.js.map": "/static/js/main.2e89baf6.js.map"
   },
   "entrypoints": [
     "static/css/main.633ecd7c.css",
-    "static/js/main.7804f51c.js"
+    "static/js/main.2e89baf6.js"
   ]
 }
