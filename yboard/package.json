@@ -1,7 +1,7 @@
 {
   "name": "yboard",
   "version": "0.1.0",
-  "homepage": "http://yarski25.github.io/",
+  "homepage": "http://yarski25.github.io/yboard",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
